@@ -11,3 +11,10 @@ each team plays everyone in their division twice, and everyone in the other divi
 7 matchups outside of division
 
 don't want to play anyone back to back
+
+
+week 2: 
+
+sample team
+
+if team 1 and team 2 are in different divisions and have already played, then they can't match up again
