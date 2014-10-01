@@ -1,10 +1,10 @@
 class Team
 
-  attr_reader :name, :division
+  attr_accessor :name, :division
 
-  def initialize(name:, division:)
+  def initialize(name, options={})
     @name = name
-    @division = division    
+    @division = options[:division]
   end
 
 end

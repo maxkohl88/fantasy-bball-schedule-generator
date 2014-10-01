@@ -1,32 +1,64 @@
+require 'pry'
 require './team.rb'
 require './matchup.rb'
+require './division.rb'
 
-team1 = Team.new(name: "DeRozan Kavaliers", division: "East")
-team2 = Team.new(name: "Gorgui and Bess", division: "East")
-team3 = Team.new(name: "Cigar City Smokers", division: "East")
-team4 = Team.new(name: "Team Guatemalan Handshake", division: "East")
-team5 = Team.new(name: "Grand Theft Otto", division: "East")
-team6 = Team.new(name: "Game: Blouses", division: "East")
-team7 = Team.new(name: "Team 7", division: "East")
+EASTERN_TEAMS = [
+Team.new("DeRozan Kavaliers", division: "East"),
+Team.new("Gorgui and Bess", division: "East"),
+Team.new("Cigar City Smokers", division: "East"),
+Team.new("Team Guatemalan Handshake", division: "East"),
+Team.new("Grand Theft Otto", division: "East"),
+Team.new("Game: Blouses", division: "East"),
+Team.new("Team 7", division: "East")
+]
 
-team8 = Team.new(name: "Thor's Enforcers", division: "West")
-team9 = Team.new(name: "Team Shadynasty", division: "West")
-team10 = Team.new(name: "Albany Artesticles", division: "West")
-team11 = Team.new(name: "I Hate Myself", division: "West")
-team12 = Team.new(name: "The Film Shaqter's Guild", division: "West")
-team13 = Team.new(name: "Twerk Nowitzki", division: "West")
-team14 = Team.new(name: "Steve Francises", division: "West")
+WESTERN_TEAMS = [
+Team.new("Thor's Enforcers", division: "West"),
+Team.new("Team Shadynasty", division: "West"),
+Team.new("Albany Artesticles", division: "West"),
+Team.new("I Hate Myself", division: "West"),
+Team.new("The Film Shaqter's Guild", division: "West"),
+Team.new("Twerk Nowitzki", division: "West"),
+Team.new("Steve Francises", division: "West")
+]
 
-east = [team1, team2, team3, team4, team5, team6, team7]
-west = [team8, team9, team10, team11, team12, team13, team14]
-league = [east, west]
+east = Division.new(name: "East", teams: EASTERN_TEAMS)
+west = Division.new(name: "West", teams: WESTERN_TEAMS)
 
-firstmatchup = WeeklyMatchup.new(team1: team1, team2: team2)
+# set the first team for the first matchup
+team1 = east.teams.sample
 
-puts firstmatchup.show_matchup
+#set the second team for the first matchup
+team2 = east.teams.sample
 
-def schedule_maker(league)
-  week_count = 1
+def create_matchup(first_team, second_team)
+  if first_team == second_team
+    second_team = east.teams.sample
+    same_team_matchup(first_team, second_team)
+  else
+    Matchup.new(team1: first_team, team2: second_team, week: 1)
+  end
 end
 
+binding.pry
 
+def schedule_maker(league)
+  matchup = 1
+  weekly_matchups = []
+
+  while matchup <= 7
+    team1 = league[0].sample
+    team2 = league[0].sample
+
+    if team1 == team2
+      team2 = nil
+    else
+      weekly_matchups << Matchup.new(team1: team1, team2: team2, week: matchup)
+    end
+
+    matchup +=1 
+  end
+
+  weekly_matchups
+end
