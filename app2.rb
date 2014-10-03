@@ -27,17 +27,17 @@ east = Division.new(name: "East", teams: EASTERN_TEAMS)
 west = Division.new(name: "West", teams: WESTERN_TEAMS)
 
 # set the first team for the first matchup
-team1 = east.teams.sample
+
 
 #set the second team for the first matchup
-team2 = east.teams.sample
 
-def create_matchup(first_team, second_team)
-  if first_team == second_team
-    second_team = east.teams.sample
-    same_team_matchup(first_team, second_team)
+def create_matchup(division1, division2)
+  team1 = division1.teams.sample
+  team2 = division2.teams.sample
+  if team1 != team2
+    Matchup.new(team1: team1, team2: team2, week: 1)
   else
-    Matchup.new(team1: first_team, team2: second_team, week: 1)
+    create_matchup
   end
 end
 
